@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 218 38% 95%;
+    --foreground: 227 66% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 227 66% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 227 66% 15%;
+    --primary: 227 66% 26.5%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 191 69% 52.4%;
+    --secondary-foreground: 227 66% 15%;
+    --muted: 218 20% 90%;
+    --muted-foreground: 227 20% 45%;
+    --accent: 191 69% 52.4%;
+    --accent-foreground: 227 66% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 218 20% 85%;
+    --input: 218 20% 85%;
+    --ring: 227 66% 26.5%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    --background: 227 66% 6%;
+    --foreground: 210 40% 98%;
+    --card: 227 66% 9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 227 66% 6%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 191 69% 52.4%;
+    --primary-foreground: 227 66% 15%;
+    --secondary: 227 30% 15%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 227 30% 15%;
+    --muted-foreground: 227 20% 65%;
+    --accent: 191 69% 52.4%;
+    --accent-foreground: 227 66% 15%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 227 30% 15%;
+    --input: 227 30% 15%;
+    --ring: 191 69% 52.4%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .perspective {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,53 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "Modern corporate office with blue accents",
+      "imageUrl": "https://picsum.photos/seed/bisa-hero/1920/1080",
+      "imageHint": "modern office corporate"
+    },
+    {
+      "id": "web-project",
+      "description": "A sleek web dashboard interface",
+      "imageUrl": "https://picsum.photos/seed/bisa-web/800/600",
+      "imageHint": "dashboard software"
+    },
+    {
+      "id": "app-project",
+      "description": "Mobile application user interface",
+      "imageUrl": "https://picsum.photos/seed/bisa-app/800/600",
+      "imageHint": "mobile app ui"
+    },
+    {
+      "id": "ai-project",
+      "description": "Abstract AI and data visualization",
+      "imageUrl": "https://picsum.photos/seed/bisa-ai/800/600",
+      "imageHint": "artificial intelligence data"
+    },
+    {
+      "id": "design-project",
+      "description": "Branding and graphic design layout",
+      "imageUrl": "https://picsum.photos/seed/bisa-design/800/600",
+      "imageHint": "branding graphic design"
+    },
+    {
+      "id": "team-member-1",
+      "description": "Corporate team member portrait",
+      "imageUrl": "https://picsum.photos/seed/team-1/400/400",
+      "imageHint": "business portrait"
+    },
+    {
+      "id": "team-member-2",
+      "description": "Corporate team member portrait",
+      "imageUrl": "https://picsum.photos/seed/team-2/400/400",
+      "imageHint": "business portrait"
+    },
+    {
+      "id": "team-member-3",
+      "description": "Corporate team member portrait",
+      "imageUrl": "https://picsum.photos/seed/team-3/400/400",
+      "imageHint": "business portrait"
+    }
+  ]
+}
