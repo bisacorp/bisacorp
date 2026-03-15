@@ -12,9 +12,9 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const AIServicesExplainerInputSchema = z.object({
-  businessType: z.string().describe('Jenis bisnis yang dijalankan klien.'),
-  problem: z.string().optional().describe('Masalah spesifik yang dihadapi klien yang bisa diselesaikan dengan AI.'),
-  desiredOutcome: z.string().optional().describe('Hasil yang diinginkan klien dengan menggunakan AI.'),
+  businessType: z.string().min(2).max(100).describe('Jenis bisnis yang dijalankan klien.'),
+  problem: z.string().max(300).optional().describe('Masalah spesifik yang dihadapi klien yang bisa diselesaikan dengan AI.'),
+  desiredOutcome: z.string().max(300).optional().describe('Hasil yang diinginkan klien dengan menggunakan AI.'),
 });
 export type AIServicesExplainerInput = z.infer<typeof AIServicesExplainerInputSchema>;
 

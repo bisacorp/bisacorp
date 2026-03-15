@@ -4,7 +4,7 @@
 
 BISA Corp is a full-service technology partner specializing in high-end digital solutions. We combine cutting-edge technology with professional design to empower modern enterprises.
 
-## 🚀 Key Features
+##  Key Features
 
 - **AI Explainer**: Personalized AI consultation flow that visualizes how AI can transform your specific business type.
 - **Web Development**: Robust and scalable applications built with Next.js 15.
@@ -12,7 +12,7 @@ BISA Corp is a full-service technology partner specializing in high-end digital 
 - **Custom AI Models**: Intelligent automation and data-driven insights.
 - **Design Excellence**: Modern UI/UX and brand identity solutions.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
 - **AI Engine**: [Google Genkit](https://firebase.google.com/docs/genkit) with Gemini 2.0 Flash
@@ -20,7 +20,7 @@ BISA Corp is a full-service technology partner specializing in high-end digital 
 - **Styling**: Tailwind CSS & Framer Motion
 - **Icons**: Lucide React
 
-## 📦 Getting Started
+##  Getting Started
 
 1. **Install Dependencies**:
    ```bash
@@ -46,7 +46,7 @@ BISA Corp is a full-service technology partner specializing in high-end digital 
 
 BISA Corp adalah mitra teknologi layanan lengkap yang menspesialisasikan diri pada solusi digital kelas atas. Kami menggabungkan teknologi mutakhir dengan desain profesional untuk memberdayakan perusahaan modern.
 
-## 🚀 Fitur Utama
+##  Fitur Utama
 
 - **AI Explainer**: Alur konsultasi AI personal yang memvisualisasikan bagaimana AI dapat mentransformasi jenis bisnis spesifik Anda.
 - **Pengembangan Web**: Aplikasi yang kokoh dan terukur yang dibangun dengan Next.js 15.
@@ -54,7 +54,7 @@ BISA Corp adalah mitra teknologi layanan lengkap yang menspesialisasikan diri pa
 - **Model AI Kustom**: Otomatisasi cerdas dan wawasan berbasis data.
 - **Keunggulan Desain**: Solusi UI/UX modern dan identitas merek.
 
-## 🛠️ Teknologi yang Digunakan
+##  Teknologi yang Digunakan
 
 - **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
 - **AI Engine**: [Google Genkit](https://firebase.google.com/docs/genkit) dengan Gemini 2.0 Flash
@@ -62,7 +62,7 @@ BISA Corp adalah mitra teknologi layanan lengkap yang menspesialisasikan diri pa
 - **Styling**: Tailwind CSS & Framer Motion
 - **Ikon**: Lucide React
 
-## 📦 Memulai
+##  Memulai
 
 1. **Instal Dependensi**:
    ```bash
@@ -84,7 +84,7 @@ BISA Corp adalah mitra teknologi layanan lengkap yang menspesialisasikan diri pa
 
 ---
 
-## 🌐 Connect With Us
+##  Connect With Us
 - **LinkedIn**: [BISA Corp](https://www.linkedin.com/company/bisa-corp/)
 - **Instagram**: [@bisa.corporation](https://www.instagram.com/bisa.corporation)
 
