@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -46,6 +48,13 @@ export function Services() {
     },
   ];
 
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+
+  const handleCardClick = (idx: number) => {
+    // If clicking the currently flipped card, unflip it. Otherwise, flip the new one.
+    setFlippedIndex(flippedIndex === idx ? null : idx);
+  };
+
   return (
     <section
       id="services"
@@ -69,8 +78,15 @@ export function Services() {
             <div
               key={idx}
               className="group perspective h-[400px] cursor-pointer"
+              onClick={() => handleCardClick(idx)}
             >
-              <div className="relative w-full h-full transition-all duration-700 preserve-3d group-hover:[transform:rotateY(-180deg)]">
+              <div
+                className={`relative w-full h-full transition-all duration-700 preserve-3d ${
+                  flippedIndex === idx
+                    ? "[transform:rotateY(-180deg)]"
+                    : "lg:group-hover:[transform:rotateY(-180deg)]"
+                }`}
+              >
                 {/* Front Side */}
                 <Card className="absolute inset-0 backface-hidden border border-border shadow-lg bg-card flex flex-col">
                   <CardHeader className="pt-8 px-8">
