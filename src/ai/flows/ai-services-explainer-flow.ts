@@ -24,7 +24,13 @@ const AIServicesExplainerOutputSchema = z.object({
 export type AIServicesExplainerOutput = z.infer<typeof AIServicesExplainerOutputSchema>;
 
 export async function explainAIServices(input: AIServicesExplainerInput): Promise<AIServicesExplainerOutput> {
-  return aiServicesExplainerFlow(input);
+  try {
+    const result = await aiServicesExplainerFlow(input);
+    return JSON.parse(JSON.stringify(result));
+  } catch (err: any) {
+    console.error("[explainAIServices] Server Action Error:", err);
+    throw new Error(`Gagal memproses AI: ${err.message || "Unknown error"}`);
+  }
 }
 
 const aiServicesExplainerPrompt = ai.definePrompt({
