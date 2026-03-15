@@ -148,7 +148,7 @@ export const translations = {
       hero: {
         title: "Mendorong Keunggulan",
         digital: "Digital",
-        since: "Sejak 2015",
+        since: "Sejak 2026",
         desc: "BISA Corp didirikan atas prinsip bahwa teknologi kelas atas harus dapat diakses, stabil, dan berorientasi pada hasil. Kami adalah kolektif insinyur, desainer, dan spesialis AI yang berdedikasi untuk menciptakan produk yang mendefinisikan pasar.",
       },
       mission: {
@@ -320,7 +320,7 @@ export const translations = {
       hero: {
         title: "Driving Digital",
         digital: "Excellence",
-        since: "Since 2015",
+        since: "Since 2026",
         desc: "BISA Corp was founded on the principle that high-end technology should be accessible, stable, and results-oriented. We are a collective of engineers, designers, and AI specialists dedicated to creating market-defining products.",
       },
       mission: {
