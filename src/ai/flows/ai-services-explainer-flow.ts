@@ -10,6 +10,8 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { headers } from 'next/headers';
+import { aiRateLimiter } from '@/lib/rate-limit';
 
 const AIServicesExplainerInputSchema = z.object({
   businessType: z.string().min(2).max(100).describe('Jenis bisnis yang dijalankan klien.'),
@@ -25,6 +27,14 @@ export type AIServicesExplainerOutput = z.infer<typeof AIServicesExplainerOutput
 
 export async function explainAIServices(input: AIServicesExplainerInput): Promise<AIServicesExplainerOutput> {
   try {
+    const headersList = await headers();
+    const forwardedFor = headersList.get("x-forwarded-for");
+    const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : "unknown-ip";
+
+    if (ip !== "unknown-ip" && !aiRateLimiter.check(ip)) {
+      throw new Error("Batas Harian Tercapai. Coba lagi besok.");
+    }
+
     const result = await aiServicesExplainerFlow(input);
     return JSON.parse(JSON.stringify(result));
   } catch (err: any) {

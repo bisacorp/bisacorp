@@ -18,6 +18,7 @@ export function Contact() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [userFax, setUserFax] = useState(""); // Honeypot
 
   useEffect(() => {
     const handleFillMessage = (e: Event) => {
@@ -46,7 +47,7 @@ export function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({ name, email, subject, message, user_fax: userFax }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal mengirim pesan.");
@@ -58,6 +59,7 @@ export function Contact() {
       setEmail("");
       setSubject("");
       setMessage("");
+      setUserFax("");
     } catch (err: unknown) {
       toast({
         title: "Gagal mengirim",
@@ -142,6 +144,19 @@ export function Contact() {
 
           <div className="bg-card p-10 rounded-3xl shadow-xl border border-border">
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot Field - Hidden from real users but visible to basic bots */}
+              <div aria-hidden="true" className="hidden opacity-0 absolute -z-50">
+                <Label htmlFor="user_fax">Fax</Label>
+                <Input
+                  id="user_fax"
+                  type="text"
+                  name="user_fax"
+                  autoComplete="off"
+                  tabIndex={-1}
+                  value={userFax}
+                  onChange={(e) => setUserFax(e.target.value)}
+                />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">{t.contact.form.name}</Label>
