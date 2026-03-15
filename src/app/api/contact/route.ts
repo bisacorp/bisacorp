@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { z } from "zod";
 import { headers } from "next/headers";
 import dns from "node:dns/promises";
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
         );
     }
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from("contact_messages")
       .insert([{ name, email, subject, message }]);
 
