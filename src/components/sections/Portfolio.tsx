@@ -14,26 +14,9 @@ export function Portfolio() {
   const projects = [
     {
       ...t.portfolio.projects[0],
-      categoryKey: "AI",
-      image: PlaceHolderImages.find((img) => img.id === "ai-project")?.imageUrl,
-    },
-    {
-      ...t.portfolio.projects[1],
-      categoryKey: "Web",
-      image: PlaceHolderImages.find((img) => img.id === "web-project")
-        ?.imageUrl,
-    },
-    {
-      ...t.portfolio.projects[2],
-      categoryKey: "App",
-      image: PlaceHolderImages.find((img) => img.id === "app-project")
-        ?.imageUrl,
-    },
-    {
-      ...t.portfolio.projects[3],
-      categoryKey: "Design",
-      image: PlaceHolderImages.find((img) => img.id === "design-project")
-        ?.imageUrl,
+      categoryKeys: ["Web", "AI", "All"],
+      image: "/portfolio/bisa-corp.png",
+      link: "https://github.com/bisacorp/bisacorp",
     },
   ];
 
@@ -46,7 +29,7 @@ export function Portfolio() {
 
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === "All") return true;
-    return project.categoryKey === activeFilter;
+    return project.categoryKeys.includes(activeFilter);
   });
 
   return (
@@ -84,9 +67,12 @@ export function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {filteredProjects.map((project, idx) => (
-            <div
+            <a
               key={`${idx}-${language}`}
-              className="group relative overflow-hidden rounded-3xl bg-card shadow-md hover:shadow-2xl transition-all duration-500 animate-in fade-in zoom-in-95 duration-300 border border-border"
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative overflow-hidden rounded-3xl bg-card shadow-md hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 animate-in fade-in zoom-in-95 border border-border block cursor-pointer"
             >
               <div className="relative h-80 overflow-hidden">
                 <Image
@@ -110,7 +96,7 @@ export function Portfolio() {
                 </h4>
                 <p className="text-muted-foreground">{project.desc}</p>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 

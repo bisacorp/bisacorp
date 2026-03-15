@@ -67,24 +67,9 @@ export const translations = {
       empty: "Tidak ada proyek ditemukan dalam kategori ini.",
       projects: [
         {
-          title: "Platform Analitik Quantum",
-          category: "AI & Data",
-          desc: "Dasbor komprehensif untuk pemodelan data prediktif waktu nyata.",
-        },
-        {
-          title: "Dasbor Logistik Global",
-          category: "Pengembangan Web",
-          desc: "Sistem pelacakan dan manajemen inventaris waktu nyata untuk pengiriman internasional.",
-        },
-        {
-          title: "Aplikasi Kesehatan Pulse",
-          category: "Aplikasi Seluler",
-          desc: "Aplikasi pemantauan kesehatan terintegrasi perangkat yang dapat dikenakan.",
-        },
-        {
-          title: "Identitas Merek Aura",
-          category: "Desain",
-          desc: "Rebranding visual lengkap untuk rumah mode berkelanjutan yang mewah.",
+          title: "BISA Corp Company Profile",
+          category: "Web Development & AI",
+          desc: "Pengembangan website profil perusahaan BISA Corp yang modern dan responsif, terintegrasi dengan kustomisasi AI canggih menggunakan Next.js.",
         },
       ],
     },
@@ -239,24 +224,9 @@ export const translations = {
       empty: "No projects found in this category.",
       projects: [
         {
-          title: "Quantum Analytics Platform",
-          category: "AI & Data",
-          desc: "Comprehensive dashboard for real-time predictive data modeling.",
-        },
-        {
-          title: "Global Logistics Dashboard",
-          category: "Web Development",
-          desc: "Real-time inventory management and tracking system for international shipping.",
-        },
-        {
-          title: "Pulse Health App",
-          category: "Mobile App",
-          desc: "Health monitoring app integrated with wearable devices.",
-        },
-        {
-          title: "Aura Brand Identity",
-          category: "Design",
-          desc: "Full visual rebranding for a luxury sustainable fashion house.",
+          title: "BISA Corp Company Profile",
+          category: "Web Development & AI",
+          desc: "Development of a modern, responsive BISA Corp company profile website integrated with advanced AI customization using Next.js.",
         },
       ],
     },
