@@ -7,6 +7,14 @@ import { ThemeProvider } from '@/hooks/use-theme';
 export const metadata: Metadata = {
   title: 'BISA Corp Digital | Solusi AI & Perangkat Lunak Terkemuka',
   description: 'BISA Corp menawarkan layanan komprehensif dalam pengembangan web, pembuatan aplikasi, pengembangan model AI, dan berbagai solusi desain.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico?v=2', type: 'image/x-icon' },
+      { url: '/icon.png?v=2', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico?v=2',
+    apple: '/icon.png?v=2',
+  },
 };
 
 export default function RootLayout({
