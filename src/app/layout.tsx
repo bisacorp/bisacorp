@@ -8,14 +8,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 export const metadata: Metadata = {
   title: 'BISA Corp Digital | Solusi AI & Perangkat Lunak Terkemuka',
   description: 'BISA Corp menawarkan layanan komprehensif dalam pengembangan web, pembuatan aplikasi, pengembangan model AI, dan berbagai solusi desain.',
-  icons: {
-    icon: [
-      { url: '/favicon.ico?v=3', type: 'image/x-icon' },
-      { url: '/icon.png?v=3', type: 'image/png' },
-    ],
-    shortcut: '/favicon.ico?v=3',
-    apple: '/icon.png?v=3',
-  },
 };
 
 export default function RootLayout({
