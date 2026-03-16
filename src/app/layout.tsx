@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/hooks/use-language';
 import { ThemeProvider } from '@/hooks/use-theme';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: 'BISA Corp Digital | Solusi AI & Perangkat Lunak Terkemuka',
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             {children}
+            <SpeedInsights />
           </LanguageProvider>
         </ThemeProvider>
       </body>
