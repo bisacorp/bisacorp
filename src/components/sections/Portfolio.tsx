@@ -76,7 +76,7 @@ export function Portfolio() {
             >
               <div className="relative h-80 overflow-hidden">
                 <Image
-                  src={project.image || "/main-content.jpg"}
+                  src={project.image || "/main-content.jpeg"}
                   alt={project.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -109,3 +109,4 @@ export function Portfolio() {
     </section>
   );
 }
+

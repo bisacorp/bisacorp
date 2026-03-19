@@ -8,6 +8,7 @@ import { Mail, MessageCircle, MapPin, Send } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/hooks/use-language";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export function Contact() {
   const { t } = useLanguage();
@@ -19,6 +20,7 @@ export function Contact() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [userFax, setUserFax] = useState(""); // Honeypot
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   useEffect(() => {
     const handleFillMessage = (e: Event) => {
@@ -42,12 +44,20 @@ export function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!turnstileToken && process.env.NODE_ENV === "production") {
+      toast({
+        title: "Captcha Required",
+        description: "Mohon verifikasi bahwa Anda bukan robot.",
+        variant: "destructive",
+      });
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, subject, message, user_fax: userFax }),
+        body: JSON.stringify({ name, email, subject, message, user_fax: userFax, turnstileToken }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal mengirim pesan.");
@@ -60,6 +70,7 @@ export function Contact() {
       setSubject("");
       setMessage("");
       setUserFax("");
+      // Turnstile will auto reset, or we could force a reset via ref if needed.
     } catch (err: unknown) {
       toast({
         title: "Gagal mengirim",
@@ -204,6 +215,18 @@ export function Contact() {
                   onChange={(e) => setMessage(e.target.value)}
                 />
               </div>
+
+              {/* Cloudflare Turnstile */}
+              <div className="flex justify-center">
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+                  onSuccess={(token) => setTurnstileToken(token)}
+                  options={{
+                    theme: "light",
+                  }}
+                />
+              </div>
+
               <Button
                 type="submit"
                 disabled={loading}

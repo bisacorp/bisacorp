@@ -11,7 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { headers } from 'next/headers';
-import { aiRateLimiter } from '@/lib/rate-limit';
+import { aiRateLimiter, checkRateLimit } from '@/lib/rate-limit';
 
 const AIServicesExplainerInputSchema = z.object({
   businessType: z.string().min(2).max(100).describe('Jenis bisnis yang dijalankan klien.'),
@@ -31,7 +31,7 @@ export async function explainAIServices(input: AIServicesExplainerInput): Promis
     const forwardedFor = headersList.get("x-forwarded-for");
     const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : "unknown-ip";
 
-    if (ip !== "unknown-ip" && !aiRateLimiter.check(ip)) {
+    if (ip !== "unknown-ip" && !(await checkRateLimit(aiRateLimiter, ip))) {
       throw new Error("Batas Harian Tercapai. Coba lagi besok.");
     }
 

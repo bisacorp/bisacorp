@@ -3,7 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { z } from "zod";
 import { headers } from "next/headers";
 import dns from "node:dns/promises";
-import { contactRateLimiter } from "@/lib/rate-limit";
+import { contactRateLimiter, checkRateLimit } from "@/lib/rate-limit";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Nama wajib diisi.").max(100, "Nama terlalu panjang."),
@@ -11,6 +11,7 @@ const contactSchema = z.object({
   subject: z.string().min(1, "Subjek wajib diisi.").max(200, "Subjek terlalu panjang."),
   message: z.string().min(1, "Pesan wajib diisi.").max(5000, "Pesan terlalu panjang."),
   user_fax: z.string().optional(), // Honeypot field
+  turnstileToken: z.string().optional(),
 });
 
 async function isValidMailDomain(email: string): Promise<boolean> {
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
     const forwardedFor = headersList.get("x-forwarded-for");
     const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : "unknown-ip";
 
-    if (ip !== "unknown-ip" && !contactRateLimiter.check(ip)) {
+    if (ip !== "unknown-ip" && !(await checkRateLimit(contactRateLimiter, ip))) {
       return NextResponse.json(
         { error: "Terlalu banyak permintaan. Silakan coba lagi sebentar lagi." },
         { status: 429 },
@@ -48,13 +49,35 @@ export async function POST(req: Request) {
       );
     }
 
-    const { name, email, subject, message, user_fax } = parsed.data;
+    const { name, email, subject, message, user_fax, turnstileToken } = parsed.data;
 
     // 2. Honeypot Check
     if (user_fax) {
       console.warn(`[Spam Blocked] Bot detected via honeypot from IP: ${ip}`);
       // Fake a 200 response to fool the bot into thinking it succeeded
       return NextResponse.json({ success: true });
+    }
+
+    // 2.5 Cloudflare Turnstile Check
+    if (process.env.TURNSTILE_SECRET_KEY && process.env.NODE_ENV === "production") {
+      if (!turnstileToken) {
+        return NextResponse.json({ error: "Captcha invalid." }, { status: 400 });
+      }
+
+      const formData = new URLSearchParams();
+      formData.append("secret", process.env.TURNSTILE_SECRET_KEY);
+      formData.append("response", turnstileToken);
+      formData.append("remoteip", ip);
+
+      const cfRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        body: formData,
+      });
+
+      const cfData = await cfRes.json();
+      if (!cfData.success) {
+        return NextResponse.json({ error: "Captcha verification failed. Please try again." }, { status: 400 });
+      }
     }
 
     // 3. Deep Email Validation (MX Record Lookup)
@@ -76,6 +99,59 @@ export async function POST(req: Request) {
         { error: "Gagal menyimpan pesan. Coba lagi nanti." },
         { status: 500 },
       );
+    }
+
+    // 4. Send Automated Emails using Nodemailer
+    try {
+      const transporter = require("nodemailer").createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+
+      // Email for the Team
+      const teamMailOptions = {
+        from: `"BISA Corp Web" <${process.env.EMAIL_USER}>`,
+        to: "bisacorp.bisnis@gmail.com",
+        subject: `[Kontak Baru] ${subject} - dari ${name}`,
+        html: `
+          <h2>Pesan Baru dari Form Kontak Hubungi Kami</h2>
+          <p><strong>Nama:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Subjek:</strong> ${subject}</p>
+          <p><strong>Pesan:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>
+        `,
+      };
+
+      // Email for the Client (Auto-reply)
+      const clientMailOptions = {
+        from: `"BISA Corp" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: "Terima kasih telah menghubungi BISA Corp",
+        html: `
+          <h3>Halo, ${name}!</h3>
+          <p>Terima kasih telah menghubungi kami. Kami telah menerima pesan Anda dan tim kami akan segera merespons secepatnya.</p>
+          <br/>
+          <p><strong>Detail Pesan Anda:</strong></p>
+          <p><em>Subjek:</em> ${subject}</p>
+          <p><em>Pesan:</em> ${message.replace(/\n/g, '<br/>')}</p>
+          <br/>
+          <p>Salam hangat,</p>
+          <p><strong>Tim BISA Corp</strong></p>
+        `,
+      };
+
+      // Send both emails asynchronously in parallel
+      await Promise.all([
+        transporter.sendMail(teamMailOptions),
+        transporter.sendMail(clientMailOptions)
+      ]);
+      console.log("[Email Sender] Automated emails sent successfully.");
+    } catch (emailError) {
+      console.error("[Email Sender error]", emailError);
+      // We don't return an error response here because the message was already saved to the database successfully.
     }
 
     return NextResponse.json({ success: true });

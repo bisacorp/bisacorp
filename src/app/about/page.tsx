@@ -53,7 +53,7 @@ export default function AboutPage() {
           <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
             <div className="relative h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="/main-content.jpg"
+                src="/main-content.jpeg"
                 alt="Mission"
                 fill
                 className="object-cover"
@@ -149,3 +149,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

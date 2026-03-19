@@ -1,4 +1,18 @@
-export class RateLimiter {
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
+const hasRedis =
+  !!process.env.UPSTASH_REDIS_REST_URL &&
+  !!process.env.UPSTASH_REDIS_REST_TOKEN;
+
+const redis = hasRedis
+  ? new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL!,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    })
+  : null;
+
+export class MemoryRateLimiter {
   private requestCounts: Map<string, { count: number; resetTime: number }> =
     new Map();
 
@@ -7,28 +21,24 @@ export class RateLimiter {
     private windowMs: number,
   ) {}
 
-  check(ip: string): boolean {
+  async check(ip: string): Promise<boolean> {
     const now = Date.now();
     const rateData = this.requestCounts.get(ip);
 
-    // If no record or the window has passed, reset
     if (!rateData || now > rateData.resetTime) {
       this.requestCounts.set(ip, {
         count: 1,
         resetTime: now + this.windowMs,
       });
-      // Cleanup old entries randomly to avoid memory leaks
       if (Math.random() < 0.1) this.cleanup(now);
       return true;
     }
 
-    // If within window, increment and check
     if (rateData.count < this.maxRequests) {
       rateData.count++;
       return true;
     }
 
-    // Rate limit exceeded
     return false;
   }
 
@@ -41,8 +51,28 @@ export class RateLimiter {
   }
 }
 
-// Global instances
+// Global instances wrapper
+export const createRateLimiter = (memoryMax: number, memoryWindow: number, redisConfig: Parameters<typeof Ratelimit.slidingWindow>[1], redisMax = memoryMax) => {
+  if (hasRedis) {
+    return new Ratelimit({
+      redis: redis!,
+      limiter: Ratelimit.slidingWindow(redisMax, redisConfig),
+    });
+  }
+  return new MemoryRateLimiter(memoryMax, memoryWindow);
+};
+
+export const checkRateLimit = async (limiter: Ratelimit | MemoryRateLimiter, ip: string): Promise<boolean> => {
+  if (limiter instanceof MemoryRateLimiter) {
+    return await limiter.check(ip);
+  } else {
+    const { success } = await limiter.limit(ip);
+    return success;
+  }
+};
+
 // 3 requests per hour for Contact API
-export const contactRateLimiter = new RateLimiter(3, 60 * 60 * 1000);
+export const contactRateLimiter = createRateLimiter(3, 60 * 60 * 1000, "1 h");
+
 // 3 requests per day for AI Explainer
-export const aiRateLimiter = new RateLimiter(3, 24 * 60 * 60 * 1000);
+export const aiRateLimiter = createRateLimiter(3, 24 * 60 * 60 * 1000, "1 d");

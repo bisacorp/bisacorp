@@ -58,7 +58,7 @@ export function Hero() {
           <div className="absolute inset-0 bg-accent/20 rounded-3xl -rotate-3 scale-95 blur-2xl" />
           <div className="relative h-full w-full rounded-3xl overflow-hidden shadow-2xl border border-white/20 dark:border-white/10">
             <Image
-              src="/main-content.jpg"
+              src="/main-content.jpeg"
               alt="BISA Corp Hero"
               fill
               className="object-cover dark:brightness-90"
@@ -71,3 +71,4 @@ export function Hero() {
     </section>
   );
 }
+
