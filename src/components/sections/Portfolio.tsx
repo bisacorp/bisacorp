@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { cn } from "@/lib/utils";
@@ -11,14 +12,11 @@ export function Portfolio() {
   const { t, language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const projects = [
-    {
-      ...t.portfolio.projects[0],
-      categoryKeys: ["Web", "AI", "All"],
-      image: "/portfolio/bisa-corp.png",
-      link: "https://github.com/bisacorp/bisacorp",
-    },
-  ];
+  const projects = t.portfolio.projects.map((project, idx) => ({
+    ...project,
+    categoryKeys: ["Web", "AI", "All"],
+    image: idx === 0 ? "/portfolio/bisa-corp.png" : "/main-content.jpeg",
+  }));
 
   const filters = [
     { name: t.portfolio.filters.all, value: "All" },
@@ -67,11 +65,9 @@ export function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {filteredProjects.map((project, idx) => (
-            <a
+            <Link
               key={`${idx}-${language}`}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`/portfolio/${project.slug}`}
               className="group relative overflow-hidden rounded-3xl bg-card shadow-md hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 animate-in fade-in zoom-in-95 border border-border block cursor-pointer"
             >
               <div className="relative h-80 overflow-hidden">
@@ -82,7 +78,7 @@ export function Portfolio() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   data-ai-hint="software dashboard"
                 />
-                <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-8">
                 <Badge
@@ -96,7 +92,7 @@ export function Portfolio() {
                 </h4>
                 <p className="text-muted-foreground">{project.desc}</p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
 
