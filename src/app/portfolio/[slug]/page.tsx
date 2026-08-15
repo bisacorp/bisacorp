@@ -1,6 +1,6 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/sections/Navbar";
@@ -19,6 +19,8 @@ import {
   Target,
   TrendingUp,
   Code2,
+  ZoomIn,
+  X,
 } from "lucide-react";
 
 interface PortfolioPageProps {
@@ -31,6 +33,7 @@ export default function PortfolioDetailPage({ params }: PortfolioPageProps) {
   const resolvedParams = use(params);
   const { slug } = resolvedParams;
   const { t } = useLanguage();
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null);
 
   const labels = t.portfolio.detailLabels || {
     backToPortfolio: "Kembali ke Portofolio",
@@ -40,6 +43,8 @@ export default function PortfolioDetailPage({ params }: PortfolioPageProps) {
     category: "Kategori",
     visitWebsite: "Kunjungi Situs Live",
     overview: "Gambaran Umum Proyek",
+    highlightedFeaturesTitle: "Fitur Unggulan Proyek",
+    highlightedFeaturesSubtitle: "Eksplorasi modul utama yang dirancang untuk mengoptimalkan operasional dan pelayanan bisnis.",
     challenge: "Tantangan",
     solution: "Solusi Kami",
     keyFeatures: "Fitur Utama",
@@ -78,7 +83,7 @@ export default function PortfolioDetailPage({ params }: PortfolioPageProps) {
     );
   }
 
-  const projectImage = "/portfolio/bisa-comp-profile-new.png";
+  const projectImage = project.image || (slug === "bisa-corp-company-profile" ? "/portfolio/bisa-comp-profile-new.png" : "/portfolio/pkb.png");
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -113,7 +118,11 @@ export default function PortfolioDetailPage({ params }: PortfolioPageProps) {
 
         {/* Project Meta Cards */}
         <section className="container mx-auto px-6 mb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-8 rounded-3xl bg-card border border-border/60 shadow-lg">
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-2 ${
+              project.liveUrl ? "lg:grid-cols-4" : "lg:grid-cols-3"
+            } gap-6 p-8 rounded-3xl bg-card border border-border/60 shadow-lg`}
+          >
             <div className="flex items-center space-x-4">
               <div className="p-3 rounded-2xl bg-accent/10 text-accent">
                 <User size={24} />
@@ -150,20 +159,16 @@ export default function PortfolioDetailPage({ params }: PortfolioPageProps) {
               </div>
             </div>
 
-            <div className="flex items-center justify-start lg:justify-end">
-              {project.liveUrl ? (
+            {project.liveUrl && (
+              <div className="flex items-center justify-start lg:justify-end">
                 <Button asChild variant="default" className="bg-primary text-primary-foreground w-full sm:w-auto">
                   <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                     {labels.visitWebsite}
                     <ExternalLink size={16} />
                   </a>
                 </Button>
-              ) : (
-                <Button disabled variant="outline" className="w-full sm:w-auto">
-                  {labels.visitWebsite}
-                </Button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -194,6 +199,78 @@ export default function PortfolioDetailPage({ params }: PortfolioPageProps) {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {project.overview}
               </p>
+            </div>
+          )}
+
+          {/* Highlighted Key Features with Large Previews */}
+          {project.highlightedFeatures && project.highlightedFeatures.length > 0 && (
+            <div className="mb-24">
+              <div className="text-center max-w-2xl mx-auto mb-14">
+                <h3 className="text-3xl md:text-4xl font-headline font-bold text-primary mb-4">
+                  {labels.highlightedFeaturesTitle || "Fitur Unggulan Proyek"}
+                </h3>
+                <p className="text-muted-foreground text-lg">
+                  {labels.highlightedFeaturesSubtitle || "Eksplorasi modul utama yang dirancang untuk mengoptimalkan operasional dan pelayanan bisnis."}
+                </p>
+              </div>
+
+              <div className="space-y-12">
+                {project.highlightedFeatures.map((feat: any, idx: number) => {
+                  const isEven = idx % 2 === 1;
+                  return (
+                    <div
+                      key={idx}
+                      className="p-6 md:p-10 rounded-3xl bg-card border border-border/70 shadow-xl hover:shadow-2xl transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+                    >
+                      {/* Image Preview (7 cols) */}
+                      <div
+                        className={`lg:col-span-7 ${
+                          isEven ? "lg:order-2" : "lg:order-1"
+                        }`}
+                      >
+                        <div
+                          onClick={() => setSelectedImage({ src: feat.image, title: feat.title })}
+                          className="relative w-full h-[280px] sm:h-[360px] md:h-[430px] rounded-2xl overflow-hidden bg-background/50 border border-border/80 p-2 sm:p-3 cursor-zoom-in group shadow-inner"
+                        >
+                          <div className="relative w-full h-full rounded-xl overflow-hidden">
+                            <Image
+                              src={feat.image}
+                              alt={feat.title}
+                              fill
+                              className="object-contain object-center transition-transform duration-500 group-hover:scale-102"
+                            />
+                          </div>
+                          {/* Zoom Badge on Image */}
+                          <div className="absolute bottom-4 right-4 bg-background/90 backdrop-blur-sm text-primary px-3.5 py-2 rounded-full text-xs font-semibold shadow-lg border border-border/60 flex items-center gap-2 group-hover:bg-background group-hover:text-accent transition-all duration-300">
+                            <ZoomIn size={14} className="text-accent" />
+                            <span>Klik untuk melihat screenshot penuh</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Text Content (5 cols) */}
+                      <div
+                        className={`lg:col-span-5 flex flex-col justify-center ${
+                          isEven ? "lg:order-1" : "lg:order-2"
+                        }`}
+                      >
+                        <Badge
+                          variant="secondary"
+                          className="w-fit mb-4 bg-accent/10 text-accent border-none rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider"
+                        >
+                          Fitur #{idx + 1}
+                        </Badge>
+                        <h4 className="text-2xl md:text-3xl font-headline font-bold text-primary mb-4 leading-snug">
+                          {feat.title}
+                        </h4>
+                        <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                          {feat.desc}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
 
@@ -315,6 +392,40 @@ export default function PortfolioDetailPage({ params }: PortfolioPageProps) {
           </div>
         </section>
       </main>
+
+      {/* Lightbox Image Modal */}
+      {selectedImage && (
+        <div
+          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-6xl w-full max-h-[92vh] bg-card rounded-3xl border border-border p-4 md:p-6 shadow-2xl flex flex-col"
+          >
+            <div className="flex items-center justify-between pb-4 border-b border-border mb-4">
+              <h4 className="text-lg md:text-xl font-bold text-primary truncate pr-4">
+                {selectedImage.title}
+              </h4>
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X size={22} />
+              </button>
+            </div>
+            <div className="relative w-full h-[60vh] md:h-[75vh] rounded-2xl overflow-hidden bg-background/50 border border-border/40 p-2">
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.title}
+                fill
+                className="object-contain object-center"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

@@ -14,8 +14,8 @@ export function Portfolio() {
 
   const projects = t.portfolio.projects.map((project, idx) => ({
     ...project,
-    categoryKeys: ["Web", "AI", "All"],
-    image: idx === 0 ? "/portfolio/bisa-corp.png" : "/main-content.jpeg",
+    categoryKeys: project.categoryKeys || (idx === 0 ? ["Web", "AI", "All"] : ["Web", "App", "All"]),
+    image: project.image || (idx === 0 ? "/portfolio/bisa-comp-profile-new.png" : "/portfolio/pkb.png"),
   }));
 
   const filters = [
