@@ -73,6 +73,8 @@ export const translations = {
         category: "Kategori",
         visitWebsite: "Kunjungi Situs Live",
         overview: "Gambaran Umum Proyek",
+        highlightedFeaturesTitle: "Fitur Unggulan Proyek",
+        highlightedFeaturesSubtitle: "Eksplorasi modul utama yang dirancang untuk mengoptimalkan operasional dan pelayanan bisnis.",
         challenge: "Tantangan",
         solution: "Solusi Kami",
         keyFeatures: "Fitur Utama",
@@ -90,6 +92,8 @@ export const translations = {
           slug: "bisa-corp-company-profile",
           title: "BISA Corp Company Profile",
           category: "Web Development & AI",
+          categoryKeys: ["Web", "AI", "All"],
+          image: "/portfolio/bisa-comp-profile-new.png",
           desc: "Pengembangan website profil perusahaan BISA Corp yang modern dan responsif, terintegrasi dengan kustomisasi AI canggih menggunakan Next.js.",
           role: "Pengembangan Full-Stack & Integrasi AI",
           client: "BISA Corp (Internal Project)",
@@ -115,6 +119,55 @@ export const translations = {
             "Meningkatkan interaksi visitor berkat fitur konsultasi AI interaktif.",
             "Waktu muat halaman (Page Load Time) di bawah 1 detik untuk pengalaman pengguna yang optimal.",
             "Membangun persepsi merek yang profesional dan inovatif di mata calon mitra & klien."
+          ]
+        },
+        {
+          slug: "purnama-keben-bali-management-system",
+          title: "Purnama Keben Bali Management System",
+          category: "Web App",
+          categoryKeys: ["Web", "App", "All"],
+          image: "/portfolio/pkb.png",
+          desc: "Purnama Keben Bali Management System adalah sebuah aplikasi berbasis web yang berfungsi sebagai sebuah portal manajemen untuk mempermudah pengelolaan pesanan masuk, memantau penjualan, dan kepuasan pelanggan.",
+          role: "Ideation, UI/UX Design, Web Development",
+          client: "Ibu Diah Purnama (Pemilik UMKM Purnama Keben Bali)",
+          date: "2026",
+          overview: "Purnama Keben Bali Management System (PKB PIMS) adalah sebuah sistem portal berbasis web terpadu yang dirancang khusus untuk mendigitalkan dan menyederhanakan rantai operasional bisnis UMKM kerajinan keben khas Bali. Melalui platform ini, pemilik usaha dapat dengan mudah mencatat pesanan kustom, memonitor grafik performa penjualan, serta mengukur tingkat kepuasan pelanggan secara transparan dan terstruktur.",
+          challengeTitle: "Tantangan Utama",
+          challengeDesc: "Sebelum adanya sistem ini, proses pencatatan dan pengelolaan pesanan masuk pada UMKM Purnama Keben Bali dilakukan secara manual melalui berbagai aplikasi pesan instan. Ketiadaan sistem terpusat sering menyebabkan keterlambatan rekapitulasi data, kesulitan dalam melacak riwayat transaksi pelanggan, serta nihilnya visualisasi analitik untuk mengukur performa penjualan dan tingkat kepuasan pelanggan.",
+          solutionTitle: "Solusi Kami",
+          solutionDesc: "BISA Corp merancang dan mengembangkan sistem manajemen berbasis web yang modern dan responsif dengan integrasi dasbor analitik real-time. Kami mengimplementasikan sistem pelacakan alur pesanan terstruktur, visualisasi grafik penjualan interaktif, serta modul survei kepuasan pelanggan guna mendukung efisiensi operasional dan loyalitas konsumen.",
+          highlightedFeatures: [
+            {
+              title: "Pemantauan Statistik Penjualan & Performa Bisnis",
+              desc: "Visualisasi analitik interaktif yang menyajikan data pendapatan, jumlah pesanan, dan grafik tren penjualan berkala guna mendukung pengambilan keputusan bisnis.",
+              image: "/portfolio/stat-cust.png"
+            },
+            {
+              title: "Manajemen & Alur Pesanan Masuk Terpusat",
+              desc: "Pengelolaan alur pesanan dari tahap penerimaan, pemrosesan kustomisasi keben, hingga penyelesaian transaksi secara rapi dan real-time.",
+              image: "/portfolio/order-cust.png"
+            },
+            {
+              title: "Monitoring Kepuasan & Umpan Balik Pelanggan",
+              desc: "Modul evaluasi dan indeks kepuasan pelanggan terstruktur guna menjaga standar kualitas produk kerajinan serta meningkatkan retensi konsumen.",
+              image: "/portfolio/satisfaction-cust.png"
+            }
+          ],
+          keyFeaturesTitle: "Fitur Utama Lainnya",
+          keyFeatures: [
+            "Dasbor manajemen pesanan real-time dengan status pengerjaan",
+            "Analisis statistik grafik pendapatan dan total penjualan berkala",
+            "Pengelolaan basis data pelanggan dan riwayat transaksi",
+            "Sistem monitoring kepuasan dan rating umpan balik pelanggan",
+            "Antarmuka responsif dan ramah pengguna untuk pemilik & staf UMKM"
+          ],
+          techStackTitle: "Teknologi & Perangkat",
+          technologies: ["Laravel 13", "Livewire 4", "PHP 8.3", "Tailwind CSS", "Vite", "MySQL", "AWS S3", "Vercel"],
+          resultsTitle: "Hasil & Dampak",
+          results: [
+            "Mempercepat proses pengelolaan dan pelacakan pesanan masuk hingga 80% lebih efisien.",
+            "Menyediakan rekapitulasi data penjualan real-time tanpa risiko kehilangan catatan manual.",
+            "Meningkatkan responsivitas pelayanan dan loyalitas pelanggan melalui monitoring kepuasan berkala."
           ]
         },
       ],
@@ -276,6 +329,8 @@ export const translations = {
         category: "Category",
         visitWebsite: "Visit Live Site",
         overview: "Project Overview",
+        highlightedFeaturesTitle: "Key Feature Highlights",
+        highlightedFeaturesSubtitle: "Explore the core modules engineered to optimize business operations and client satisfaction.",
         challenge: "The Challenge",
         solution: "Our Solution",
         keyFeatures: "Key Features",
@@ -293,6 +348,8 @@ export const translations = {
           slug: "bisa-corp-company-profile",
           title: "BISA Corp Company Profile",
           category: "Web Development & AI",
+          categoryKeys: ["Web", "AI", "All"],
+          image: "/portfolio/bisa-comp-profile-new.png",
           desc: "Development of a modern, responsive BISA Corp company profile website integrated with advanced AI customization using Next.js.",
           role: "Full-Stack Development & AI Integration",
           client: "BISA Corp (Internal Project)",
@@ -318,6 +375,55 @@ export const translations = {
             "Increased visitor engagement through interactive AI consultation capabilities.",
             "Sub-1-second page load times delivering an optimal user experience.",
             "Established a professional, innovative brand presence for prospective clients and partners."
+          ]
+        },
+        {
+          slug: "purnama-keben-bali-management-system",
+          title: "Purnama Keben Bali Management System",
+          category: "Web App",
+          categoryKeys: ["Web", "App", "All"],
+          image: "/portfolio/pkb.png",
+          desc: "Purnama Keben Bali Management System is a web-based management portal designed to streamline incoming order processing, track sales performance, and monitor customer satisfaction.",
+          role: "Ideation, UI/UX Design, Web Development",
+          client: "Mrs. Diah Purnama (Owner of UMKM Purnama Keben Bali)",
+          date: "2026",
+          overview: "Purnama Keben Bali Management System (PKB PIMS) is an integrated web-based management platform engineered to digitize and optimize daily business operations for a traditional Balinese artisan enterprise. The portal centralizes custom order tracking, sales analytics, and customer satisfaction metrics into an intuitive, accessible dashboard.",
+          challengeTitle: "The Core Challenge",
+          challengeDesc: "Prior to this platform, order management at UMKM Purnama Keben Bali was conducted manually across scattered chat channels. This lack of centralization often led to bottlenecks in data reconciliation, challenges in tracking customer history, and the absence of structured visual analytics to evaluate ongoing sales trends and customer feedback.",
+          solutionTitle: "Our Solution",
+          solutionDesc: "BISA Corp engineered a modern, responsive web application equipped with real-time analytics dashboards. We implemented structured order lifecycle workflows, interactive sales visualizations, and an integrated customer satisfaction assessment module to drive operational efficiency and strengthen customer retention.",
+          highlightedFeatures: [
+            {
+              title: "Sales Statistics & Business Performance Analytics",
+              desc: "Interactive visual analytics showcasing revenue streams, order volumes, and periodic sales trends to empower data-driven business decisions.",
+              image: "/portfolio/stat-cust.png"
+            },
+            {
+              title: "Centralized Order Lifecycle Management",
+              desc: "End-to-end processing of custom keben orders from initial intake to fabrication tracking and transaction completion in real-time.",
+              image: "/portfolio/order-cust.png"
+            },
+            {
+              title: "Customer Satisfaction & Feedback Monitoring",
+              desc: "Structured evaluation and metric tracking of customer satisfaction ratings to maintain artisan quality standards and cultivate buyer loyalty.",
+              image: "/portfolio/satisfaction-cust.png"
+            }
+          ],
+          keyFeaturesTitle: "Other Key Highlights",
+          keyFeatures: [
+            "Real-time order tracking dashboard with automated lifecycle states",
+            "Visual revenue analytics and periodic sales reporting",
+            "Centralized customer database and transaction logs",
+            "Integrated customer satisfaction index and feedback scoring",
+            "Responsive and streamlined user interface for business owners and staff"
+          ],
+          techStackTitle: "Technologies & Tools",
+          technologies: ["Laravel 13", "Livewire 4", "PHP 8.3", "Tailwind CSS", "Vite", "MySQL", "AWS S3", "Vercel"],
+          resultsTitle: "Results & Impact",
+          results: [
+            "Accelerated incoming order processing and tracking efficiency by up to 80%.",
+            "Provided total visibility into sales performance with automated real-time dashboards.",
+            "Enhanced customer satisfaction and repeat patronage through structured feedback management."
           ]
         },
       ],
