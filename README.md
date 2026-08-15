@@ -42,7 +42,7 @@ BISA Corp is a full-service technology partner specializing in high-end digital 
 
 ---
 
-# Versi Bahasa Indonesia
+# Bahasa Indonesia
 
 BISA Corp adalah mitra teknologi layanan lengkap yang menspesialisasikan diri pada solusi digital kelas atas. Kami menggabungkan teknologi mutakhir dengan desain profesional untuk memberdayakan perusahaan modern.
 
